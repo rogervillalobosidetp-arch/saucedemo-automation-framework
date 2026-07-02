@@ -1,5 +1,7 @@
 # SauceDemo Automation Framework
 
+[![CI - Playwright](https://github.com/rogervillalobosidetp-arch/saucedemo-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/rogervillalobosidetp-arch/saucedemo-automation-framework/actions/workflows/ci.yml)
+
 Framework de automatización de pruebas **profesional y escalable** para
 [saucedemo.com](https://www.saucedemo.com), construido con **Playwright + TypeScript**.
 
