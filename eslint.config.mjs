@@ -12,6 +12,7 @@ export default tseslint.config(
       'playwright-report/**',
       'test-results/**',
       'reports/allure-report/**',
+      'k6/**', // scripts del runtime k6 (no Node): globals __ENV e imports remotos
     ],
   },
   js.configs.recommended,

@@ -39,8 +39,9 @@ saucedemo-proyecto/
 │   ├── seo/                 # auditoría SEO on-page + recursos del sitio
 │   ├── accessibility/       # axe-core (WCAG A/AA)
 │   └── performance/         # Lighthouse + Web Vitals + presupuestos + timing
+├── k6/                      # Pruebas de carga (k6): smoke, load, stress
 ├── utils/                   # env, helpers, data loader, tipos, seo utils
-├── reports/                 # HTML, Allure, Lighthouse, trazas, videos (generado)
+├── reports/                 # HTML, Allure, Lighthouse, k6, trazas, videos (generado)
 ├── eslint.config.mjs
 ├── .prettierrc.json
 ├── .env / .env.example
@@ -148,6 +149,37 @@ Cobertura combinada (Lighthouse + métricas deterministas del navegador):
   ordenamiento dentro de presupuesto.
 - **Comparativa por usuario**: `performance_glitch_user` (usuario lento intencional)
   debe ser más lento que `standard_user` — demuestra la detección de degradación.
+
+## 🏋️ Pruebas de carga (k6)
+
+Mientras Lighthouse/Web Vitals miden el rendimiento con **un solo usuario**, **k6**
+mide el **rendimiento real bajo carga concurrente** (latencia, throughput y tasa de
+error). Los scripts están en `k6/` y son parametrizables por entorno.
+
+> ⚠️ **Uso responsable**: `saucedemo.com` es una SPA estática de un tercero (sin API de
+> backend); k6 mide la entrega HTTP de la página. Genera carga **modesta** por defecto y
+> el `stress` está **bloqueado** contra el sitio público (usa `BASE_URL` con tu propio
+> entorno). No sometas a carga alta sitios que no controles.
+
+| Comando             | Escenario                                          |
+| ------------------- | -------------------------------------------------- |
+| `npm run k6:smoke`  | 1 VU · valida disponibilidad y el script (CI-safe) |
+| `npm run k6:load`   | Carga sostenida (5 VUs / 20s por defecto)          |
+| `npm run k6:stress` | Estrés progresivo (solo tu entorno)                |
+
+Parametrización y ejemplo apuntando a tu entorno:
+
+```bash
+k6 run -e BASE_URL=https://staging.tu-app.com -e K6_VUS=20 -e K6_DURATION=1m k6/load.test.js
+```
+
+- **SLO / thresholds** (`k6/lib/config.js`): `http_req_failed < 1%`, `p(95) < 800ms`,
+  `checks > 99%`. Si no se cumplen, k6 termina con código ≠ 0 (falla el CI).
+- **Evidencia**: resumen JSON en `reports/k6/summary.json`.
+- **CI manual**: workflow `k6 - Load Test (manual)` (`workflow_dispatch`) con inputs para
+  URL, escenario, VUs y duración — no se ejecuta en cada push.
+- **Instalación de k6** (binario aparte, no npm): `winget install GrafanaLabs.k6`,
+  `choco install k6` o descarga desde <https://k6.io/docs/get-started/installation/>.
 
 ## 🔧 Calidad de código
 

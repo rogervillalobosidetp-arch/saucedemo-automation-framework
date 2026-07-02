@@ -1,0 +1,48 @@
+name: k6 - Load Test (manual)
+
+# Se ejecuta SOLO a demanda para no lanzar carga en cada push.
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'URL objetivo (usa tu propio entorno para cargas altas)'
+        required: true
+        default: 'https://www.saucedemo.com'
+      scenario:
+        description: 'Escenario a ejecutar'
+        required: true
+        default: 'smoke'
+        type: choice
+        options: [smoke, load]
+      vus:
+        description: 'Usuarios virtuales (solo load)'
+        required: false
+        default: '5'
+      duration:
+        description: 'Duración de la fase sostenida (solo load)'
+        required: false
+        default: '20s'
+
+jobs:
+  k6:
+    name: k6 ${{ inputs.scenario }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar k6
+        uses: grafana/setup-k6-action@v1
+      - name: Ejecutar k6
+        uses: grafana/run-k6-action@v1
+        with:
+          path: k6/${{ inputs.scenario }}.test.js
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+          K6_VUS: ${{ inputs.vus }}
+          K6_DURATION: ${{ inputs.duration }}
+      - name: Subir resumen k6
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-summary
+          path: reports/k6
+          retention-days: 7

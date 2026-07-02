@@ -141,6 +141,22 @@ Presupuestos parametrizados en `data/performance-budgets.json`.
 
 ---
 
+## 🏋️ Pruebas de carga — k6 (`k6/`)
+
+Rendimiento **real bajo carga concurrente** (complementa a Lighthouse/Web Vitals, que son
+de un solo usuario). Parametrizable por `BASE_URL`, `K6_VUS`, `K6_DURATION`.
+
+| Escenario | Archivo          | Descripción                                          | Comando             |
+| --------- | ---------------- | ---------------------------------------------------- | ------------------- |
+| Smoke     | `smoke.test.js`  | 1 VU · disponibilidad y validez del script (CI-safe) | `npm run k6:smoke`  |
+| Load      | `load.test.js`   | Carga sostenida (5 VUs / 20s por defecto)            | `npm run k6:load`   |
+| Stress    | `stress.test.js` | Estrés progresivo (bloqueado contra sitio público)   | `npm run k6:stress` |
+
+**SLO / thresholds:** `http_req_failed < 1%` · `p(95) < 800ms` · `checks > 99%`.
+**Resultado validado:** smoke 3/3 checks · load 417/417 checks, 0% errores, p95 ≈ 28 ms.
+
+---
+
 ## 📊 Evidencias y reportes
 
 - **HTML de Playwright** · `reports/html-report`
