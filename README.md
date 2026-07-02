@@ -5,9 +5,10 @@
 Framework de automatización de pruebas **profesional y escalable** para
 [saucedemo.com](https://www.saucedemo.com), construido con **Playwright + TypeScript**.
 
-Incluye pruebas **funcionales**, **SEO**, **accesibilidad** y **performance**, con
-**Page Object Model**, **fixtures**, **Data Driven Testing**, **variables de entorno**,
-**reportes Allure + HTML**, **GitHub Actions**, **ESLint** y **Prettier**.
+Incluye pruebas **funcionales**, **SEO**, **accesibilidad**, **performance** y
+**carga (k6)**, con **Page Object Model**, **fixtures**, **Data Driven Testing**,
+**variables de entorno**, **reportes Allure + HTML**, **GitHub Actions**, **ESLint**
+y **Prettier**.
 
 ---
 
