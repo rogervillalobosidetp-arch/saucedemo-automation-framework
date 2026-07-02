@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm install 2>&1)",
+      "PowerShell(npm run typecheck 2>&1)",
+      "PowerShell(npm run lint 2>&1)",
+      "PowerShell(npm run format 2>&1)",
+      "PowerShell(npm run format:check 2>&1)",
+      "PowerShell(npx playwright test --project=functional --headed --workers=1 2>&1)"
+    ]
+  }
+}

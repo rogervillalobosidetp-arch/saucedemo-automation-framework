@@ -1,0 +1,4 @@
+[
+  { "nombre": "Login", "path": "/", "requiereLogin": false },
+  { "nombre": "Inventario", "path": "/inventory.html", "requiereLogin": true }
+]

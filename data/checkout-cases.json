@@ -1,0 +1,25 @@
+[
+  {
+    "caso": "Datos completos válidos",
+    "cliente": { "firstName": "Rodrigo", "lastName": "Villalobos", "postalCode": "28001" },
+    "esperado": "success"
+  },
+  {
+    "caso": "Falta nombre",
+    "cliente": { "firstName": "", "lastName": "Villalobos", "postalCode": "28001" },
+    "esperado": "error",
+    "mensajeError": "Error: First Name is required"
+  },
+  {
+    "caso": "Falta apellido",
+    "cliente": { "firstName": "Rodrigo", "lastName": "", "postalCode": "28001" },
+    "esperado": "error",
+    "mensajeError": "Error: Last Name is required"
+  },
+  {
+    "caso": "Falta código postal",
+    "cliente": { "firstName": "Rodrigo", "lastName": "Villalobos", "postalCode": "" },
+    "esperado": "error",
+    "mensajeError": "Error: Postal Code is required"
+  }
+]

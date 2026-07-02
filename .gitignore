@@ -1,0 +1,19 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+
+# Reportes y artefactos
+reports/
+playwright-report/
+test-results/
+blob-report/
+allure-results/
+allure-report/
+
+# Sistema / editores
+.DS_Store
+*.log
+.vscode/
+.idea/

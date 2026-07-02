@@ -1,0 +1,12 @@
+{
+  "esperados": [
+    { "nombre": "Sauce Labs Backpack", "precio": 29.99 },
+    { "nombre": "Sauce Labs Bike Light", "precio": 9.99 },
+    { "nombre": "Sauce Labs Bolt T-Shirt", "precio": 15.99 },
+    { "nombre": "Sauce Labs Fleece Jacket", "precio": 49.99 },
+    { "nombre": "Sauce Labs Onesie", "precio": 7.99 },
+    { "nombre": "Test.allTheThings() T-Shirt (Red)", "precio": 15.99 }
+  ],
+  "totalEsperado": 6,
+  "carritoMultiple": ["Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Onesie"]
+}
