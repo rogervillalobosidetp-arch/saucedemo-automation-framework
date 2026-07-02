@@ -21,7 +21,8 @@ saucedemo-proyecto/
 │   ├── login-cases.json
 │   ├── checkout-cases.json
 │   ├── products.json
-│   └── seo-pages.json
+│   ├── seo-pages.json
+│   └── performance-budgets.json
 ├── fixtures/                # Fixtures de Playwright (inyección de Page Objects)
 │   └── test.fixture.ts
 ├── pages/                   # Page Object Model
@@ -37,7 +38,7 @@ saucedemo-proyecto/
 │   ├── functional/          # login, logout, inventario, sorting, carrito, checkout, integridad
 │   ├── seo/                 # auditoría SEO on-page + recursos del sitio
 │   ├── accessibility/       # axe-core (WCAG A/AA)
-│   └── performance/         # Lighthouse
+│   └── performance/         # Lighthouse + Web Vitals + presupuestos + timing
 ├── utils/                   # env, helpers, data loader, tipos, seo utils
 ├── reports/                 # HTML, Allure, Lighthouse, trazas, videos (generado)
 ├── eslint.config.mjs
@@ -133,11 +134,20 @@ bloqueantes (critical/serious), contraste de color y navegación básica por tec
 
 ### Performance (`tests/performance`)
 
-Integración con **Lighthouse** (playwright-lighthouse). Metas configurables por `.env`:
-Performance ≥ 80, Accessibility ≥ 90, Best Practices ≥ 90, SEO ≥ 90. Performance y
-Accessibility se aplican como **gate duro** (los cumple el demo); Best Practices y SEO
-se registran como **anotaciones** de auditoría con el score real. El reporte HTML/JSON
-de Lighthouse se guarda como evidencia en `reports/lighthouse`.
+Cobertura combinada (Lighthouse + métricas deterministas del navegador):
+
+- **Lighthouse** (`performance.spec.ts`) en Login e Inventario (autenticado). Metas
+  configurables por `.env` (Performance ≥ 80, Accessibility ≥ 90, Best Practices ≥ 90,
+  SEO ≥ 90). Las categorías que el sitio cumple son **gate duro**; el resto se registra
+  como **anotación** con el score real. Reportes HTML/JSON en `reports/lighthouse`.
+- **Web Vitals / Navigation Timing** (`web-vitals.spec.ts`): TTFB, FCP, DOMContentLoaded
+  y Load contra presupuestos por página (`data/performance-budgets.json`).
+- **Presupuesto de recursos** (`resource-budget.spec.ts`): nº de peticiones y bytes
+  transferidos por página, para frenar regresiones de peso.
+- **Timing de interacciones** (`user-timing.spec.ts`): login→inventario, add-to-cart y
+  ordenamiento dentro de presupuesto.
+- **Comparativa por usuario**: `performance_glitch_user` (usuario lento intencional)
+  debe ser más lento que `standard_user` — demuestra la detección de degradación.
 
 ## 🔧 Calidad de código
 

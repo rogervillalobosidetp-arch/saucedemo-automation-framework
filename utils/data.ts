@@ -19,7 +19,21 @@ export interface ProductsData {
   carritoMultiple: string[];
 }
 
+export interface PageBudget {
+  ttfb: number;
+  firstContentfulPaint: number;
+  domContentLoaded: number;
+  load: number;
+}
+
+export interface PerformanceBudgets {
+  paginas: { login: PageBudget; inventory: PageBudget };
+  recursos: { maxRequests: number; maxTransferBytes: number };
+  acciones: { loginToInventory: number; addToCart: number; sort: number };
+}
+
 export const loginCases = load<LoginCase[]>('login-cases.json');
 export const checkoutCases = load<CheckoutCase[]>('checkout-cases.json');
 export const products = load<ProductsData>('products.json');
 export const seoPages = load<SeoPage[]>('seo-pages.json');
+export const perfBudgets = load<PerformanceBudgets>('performance-budgets.json');

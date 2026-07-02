@@ -1,0 +1,13 @@
+{
+  "paginas": {
+    "login": { "ttfb": 1500, "firstContentfulPaint": 3000, "domContentLoaded": 3500, "load": 6000 },
+    "inventory": {
+      "ttfb": 1500,
+      "firstContentfulPaint": 3500,
+      "domContentLoaded": 4000,
+      "load": 7000
+    }
+  },
+  "recursos": { "maxRequests": 60, "maxTransferBytes": 4194304 },
+  "acciones": { "loginToInventory": 5000, "addToCart": 1500, "sort": 1500 }
+}
